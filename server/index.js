@@ -20,7 +20,7 @@ app.post('/repos', function (req, res) {
   	result = JSON.parse(result);
   	console.log(result.term);
   	getReposByUsername.getReposByUsername(result.term);
-  	
+  	// .then()
   	res.send('Post request to repos');
   })
 
