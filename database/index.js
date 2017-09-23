@@ -19,18 +19,6 @@ let find = (keyValuePair, callback) => {
 
 let save = (repoObjs, callback) => {
   
-
-  // function asyncMap(tasks, callback) {
-  //   var arrayOfPromises = tasks.map(function(task){
-  //     return new Promise(task);
-  //   });
-  //   return Promise
-  //     .all(arrayOfPromises)
-  //     .then( function(values){
-  //       callback(values);
-  //     })
-  // }
-
   var arrayOfSaves = repoObjs.map(function(repoObj) {
     find({username: repoObj.username, reponame: repoObj.reponame}, function(err, result) {
       if (err) {
@@ -45,28 +33,6 @@ let save = (repoObjs, callback) => {
   });
 
   return Promise.all(arrayOfSaves);
-
-  // repoObjs.forEach(function(repoObj) {
-  //   find({username: repoObj.username, reponame: repoObj.reponame}, function(err, result) {
-  //     if (err) {
-  //       console.log(error);
-  //     } else {
-  //       if (result.length === 0) {
-  //         var obj =  new Repo(repoObj);
-  //         obj.save(function (err, obj) {
-  //           if (err) {
-  //             // return console.error(err);
-  //             return callback(err, null);
-  //           } else {
-  //             callback(null, repoObj);
-  //             // console.log("record added: ", obj);
-  //           }
-            
-  //         });
-  //       }
-  //     }
-  //   });
-  // })
 }
 
 

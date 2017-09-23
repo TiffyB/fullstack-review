@@ -10,7 +10,6 @@ class App extends React.Component {
     this.state = { 
       repos: this.refreshData() || []
     }
-
   }
 
   search (term) {
@@ -27,7 +26,6 @@ class App extends React.Component {
       success: function(data) {
         console.log("success: ", data);
         context.refreshData();
-
       },
       error: function(error) {
         console.log("error", error);

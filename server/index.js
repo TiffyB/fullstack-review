@@ -6,10 +6,6 @@ let app = express();
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
-
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
   
   var body = [];
   req.on('data', function(chunk) {
@@ -36,23 +32,8 @@ app.post('/repos', function (req, res) {
       })
       .catch(function(error){
         res.sendStatus(500);
-      })
-      // db.save(repos, function(err, obj) {
-      //   if (err) {
-      //     console.log(err);
-      //     // numRecordsToBeSaved--;
-      //   } else {
-      //     // numSuccessfullySaved++;
-      //     console.log("record added (from getRepos): ", obj);
-      //   }
-      // }); 
-      
+      })      
     });
-    // .error(function(error) {
-    //   res.sendStatus(500);
-    // });
-  	
-  	// res.send('Post request to repos');
   })
 });
 
