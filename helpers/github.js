@@ -15,28 +15,38 @@ let getReposByUsername = (term) => {
       'Authorization': `token ${config.TOKEN}`
     }
   };
-  request.get(options, function(error, response, body) {
-    // console.log("error", error);
-    
-    // console.log("body", body);
-    var results = JSON.parse(response.body);
-    // console.log("response", results.items);
-    var repos = [];
-    
-    results.items.forEach(function(repo, index) {
-      if (index <= 25) {
-        var repoObj = {};
-        repoObj.username = repo.owner.login;
-        repoObj.reponame = repo.name
-        repoObj.lastupdated = repo.updated_at;
-        repoObj.url = repo.svn_url;
-        repos.push(repoObj);
-        db.save(repoObj);
+  return new Promise(function(resolve, reject) {
+    request.get(options, function(error, response) {
+      // console.log("error", error);
+      if (error) {
+        reject(error);
+      } else {
+        resolve(response)
       }
+
       
+      // console.log(repos);
     })
-    console.log(repos);
-  })
+  }).then((response) => {
+      // console.log("body", body);
+      var results = JSON.parse(response.body);
+      // console.log("response", results.items);
+      var repos = [];
+      
+      results.items.forEach(function(repo, index) {
+        if (index <= 25) {
+          var repoObj = {};
+          repoObj.username = repo.owner.login;
+          repoObj.reponame = repo.name
+          repoObj.updated = repo.updated_at;
+          repoObj.url = repo.svn_url;
+          repos.push(repoObj);
+          db.save(repoObj);
+        }
+        
+      })
+    });
+  
 }
 
 module.exports.getReposByUsername = getReposByUsername;

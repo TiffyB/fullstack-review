@@ -16,6 +16,8 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
+    // console.log(this);
+    var context = this;
     var searchTerm = {
       term: term
     }
@@ -24,60 +26,63 @@ class App extends React.Component {
       url: 'http:\//\//127.0.0.1:1128/repos',
       method: "POST",
       data: JSON.stringify(searchTerm),
-      // contentType: 'application/json',
       success: function(data) {
         console.log("success: ", data);
-        this.refreshData(searchTerm);
+        context.refreshData(term);
+
       },
       error: function(error) {
         console.log("error", error);
       }
     })
-
-    // var url = 'https:\//\//api.github.com/search/repositories?q=user:'+ term 
-    // $.ajax({
-    //   url: url,
-    //   method: "GET",
-    //   data: {
-    //     access_token: module.exports.TOKEN,
-    //     // q: term
-    //     sort: "updated",
-    //     order: "desc"
-    //   },
-    //   success: function(data) {
-    //     console.log("success: ", data);
-    //   },
-    //   error: function(error) {
-    //     console.log("error: ", error);
-    //   }
-    // })
-
-
   }
 
   refreshData (term) {
     // console.log(`${term} was searched`);
-    console.log('got here');
+    // console.log('got here');
     var searchTerm = {
-      term: term
+      username: term
     }
+    var context = this;
+
 
     $.ajax({
       url: 'http:\//\//127.0.0.1:1128/repos',
       method: "GET",
-      data: JSON.stringify(searchTerm),
-      // contentType: 'application/json',
+      // data: JSON.stringify(searchTerm),
       success: function(data) {
-        console.log("success: ", data);
-        var repos = JSON.parse(data);
-        this.setState({
-          repos: repos
-        });
+        // console.log("success from refreshData: ", data);
+        // context.refreshData(term);
+        // console.log(typeof data);
+        if (data) {
+          var parsedData = JSON.parse(data);
+          console.log(parsedData);
+          context.setState({
+            repos: parsedData.slice(0, 25)
+          });
+        }
       },
       error: function(error) {
         console.log("error", error);
       }
     })
+
+
+    // $.ajax({
+    //   url: 'http:\//\//127.0.0.1:1128/repos',
+    //   method: "GET",
+    //   data: JSON.stringify(searchTerm),
+    //   success: function(data) {
+    //     console.log("success: ", data);
+    //     var repos = JSON.parse(data);
+    //     context.setState({
+    //       repos: repos
+    //     });
+    //   },
+    //   error: function(error) {
+    //     console.log("error", error);
+    //   }
+    // })
   } 
 
   render () {

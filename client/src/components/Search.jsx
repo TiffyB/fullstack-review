@@ -4,6 +4,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
      // this.onChange = this.onChange.bind(this);
+    // this.refreshData = this.refreshData.bind(this);
     this.state = {
       term: ''
     }
@@ -17,12 +18,14 @@ class Search extends React.Component {
 
   search() {
     // console.log(this.state.term);
+    // console.log(this);
     this.props.onSearch(this.state.term);
   }
 
-  // refreshData(term) {
-  //   this.props.refreshData(term);
-  // }
+  refreshData() {
+    console.log('called from search');
+    this.props.refreshData(this.state.term);
+  }
 
   render() {
     return (<div>
