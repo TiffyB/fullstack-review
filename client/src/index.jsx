@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
-// import Repo from './components/Repo.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // this.refreshData = this.refreshData.bind(this);
     this.state = { 
       repos: this.refreshData() || []
     }
@@ -17,7 +15,6 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // console.log(this);
     var context = this;
     var searchTerm = {
       term: term
@@ -39,22 +36,12 @@ class App extends React.Component {
   }
 
   refreshData () {
-    // console.log(`${term} was searched`);
-    // console.log('got here');
-    // var searchTerm = {
-    //   username: term
-    // }
     var context = this;
-
 
     $.ajax({
       url: 'http:\//\//127.0.0.1:1128/repos',
       method: "GET",
-      // data: JSON.stringify(searchTerm),
       success: function(data) {
-        // console.log("success from refreshData: ", data);
-        // context.refreshData(term);
-        // console.log(typeof data);
         if (data) {
           var parsedData = JSON.parse(data);
           console.log(parsedData);
@@ -67,23 +54,6 @@ class App extends React.Component {
         console.log("error", error);
       }
     })
-
-
-    // $.ajax({
-    //   url: 'http:\//\//127.0.0.1:1128/repos',
-    //   method: "GET",
-    //   data: JSON.stringify(searchTerm),
-    //   success: function(data) {
-    //     console.log("success: ", data);
-    //     var repos = JSON.parse(data);
-    //     context.setState({
-    //       repos: repos
-    //     });
-    //   },
-    //   error: function(error) {
-    //     console.log("error", error);
-    //   }
-    // })
   } 
 
   render () {

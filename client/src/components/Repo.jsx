@@ -2,8 +2,8 @@ import React from 'react';
 
 const Repo = (props) => (
   <div>
-    <div>{props.repo.username}</div>
-    <div>{props.repo.reponame}</div>
+    <a href={props.repo.url}>{props.repo.reponame}</a>
+    <span> from {props.repo.username}</span>
   </div>
 )
 

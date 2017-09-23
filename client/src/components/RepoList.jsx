@@ -5,7 +5,7 @@ import Repo from './Repo.jsx';
 const RepoList = (props) => (
   <div>
     <h4> Repo List Component </h4>
-    There are {props.repos.length} repos.
+    Here are the top {props.repos.length} most recently updated repos.
     {props.repos.map((repo) => 
     	<Repo repo={repo} />
     )}

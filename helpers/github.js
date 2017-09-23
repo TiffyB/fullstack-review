@@ -3,10 +3,7 @@ const config = require('../config.js');
 const db = require('../database/index.js');
 
 let getReposByUsername = (term) => {
-  // TODO - Use the request module to request repos for a specific
 
-  // The options object has been provided to help you out, 
-  // but you'll have to fill in the URL
   let options = {
     url: 'https://api.github.com/search/repositories?q=user:'+ term + '&sort=updated&order=desc',
     headers: {
@@ -26,7 +23,13 @@ let getReposByUsername = (term) => {
   }).then((response) => {
       var results = JSON.parse(response.body);
       var repos = [];
-      var counter = 0;
+      // var counter = 0;
+      //refactor this function to send an array of objects to save
+      //then wait for save's response
+      //then....?? call server get function?
+      // var numRecordsFound = results.items.length;
+      // var numRecordsToBeSaved = numRecordsFound;
+      // var numSuccessfullySaved = 0;
       results.items.forEach(function(repo, index) {
         if (index < 25) {
           var repoObj = {};
@@ -35,35 +38,20 @@ let getReposByUsername = (term) => {
           repoObj.updated = repo.updated_at;
           repoObj.url = repo.svn_url;
           repos.push(repoObj);
-          db.save(repoObj);
         }
-        
       })
+      db.save(repos, function(err, obj) {
+        if (err) {
+          console.log(err);
+          // numRecordsToBeSaved--;
+        } else {
+          // numSuccessfullySaved++;
+          console.log("record added (from getRepos): ", obj);
+        }
+      }); 
+      // if (numSuccessfullySaved === )
     });
   
 }
 
 module.exports.getReposByUsername = getReposByUsername;
-
-/*
-var url = 'https:\//\//api.github.com/search/repositories?q=user:'+ term 
-    //+ '&sort=updated&order=desc'
-    // var url = 'https:\//\//api.github.com/search/repositories';
-    $.ajax({
-      url: url,
-      method: "GET",
-      data: {
-        access_token: module.exports.TOKEN,
-        // q: term
-        sort: "updated",
-        order: "desc"
-      },
-      success: function(data) {
-        console.log("success: ", data);
-      },
-      error: function(error) {
-        console.log("error: ", error);
-      }
-    })
-
-    */
