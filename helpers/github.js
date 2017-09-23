@@ -34,7 +34,7 @@ let getReposByUsername = (term) => {
       var repos = [];
       
       results.items.forEach(function(repo, index) {
-        if (index <= 25) {
+        if (index < 25) {
           var repoObj = {};
           repoObj.username = repo.owner.login;
           repoObj.reponame = repo.name

@@ -12,30 +12,40 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
+let find = (keyValuePair, callback) => {
+  Repo.find(keyValuePair, callback).sort('-updated');
+}
+
 let save = (repoObj) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  var obj =  new Repo(repoObj);
+  find({username: repoObj.username, reponame: repoObj.reponame}, function(err, result) {
+    if (err) {
+      console.log(error);
+    } else {
+      if (result.length === 0) {
+        var obj =  new Repo(repoObj);
+        obj.save(function (err, obj) {
+          if (err) {
 
-  obj.save(function (err, obj) {
-  if (err) {
-
-  	return console.error(err);
-  }
-
-});
-
+            return console.error(err);
+          }
+          console.log("record added: ", obj);
+        });
+      }
+    }
+  });
 }
 
-let find = (keyValuePair, callback) => {
-	Repo.find(keyValuePair, callback);
-}
 
-find({username: "jtleek"}, function(err, results) {
-	console.log("from database file: ", results);
-	console.log(err);
-})
+
+// db.Repo.drop();
+
+// find({username: "jtleek"}, function(err, results) {
+// 	console.log("from database file: ", results);
+// 	console.log(err);
+// })
 
 module.exports.save = save;
 module.exports.find = find;
