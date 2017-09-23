@@ -1,10 +1,10 @@
-// import React from 'react';
+import React from 'react';
 
-// const Repo = (props) => (
-//   <div>
-//     <h4> {props.repo.username}</h4>
-//     // There are {props.repos.length} repos.
-//   </div>
-// )
+const Repo = (props) => (
+  <div>
+    <div>{props.repo.username}</div>
+    <div>{props.repo.reponame}</div>
+  </div>
+)
 
-// export default Repo;
+export default Repo;
