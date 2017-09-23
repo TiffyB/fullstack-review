@@ -38,11 +38,7 @@ app.get('/repos', function (req, res) {
   	body.push(chunk);
   })
   req.on('end', function() {
-  	// var result = [].concat(body).toString();
-  	// console.log("result in app.get is: ", result);
-  	// result = JSON.parse(result);
-  	// console.log("get request body", result.term);
-  	db.find({username: "jtleek"}, function(err, repos) {
+    db.find({}, function(err, repos) { 
   		if (err) {
   			console.log(err);
   		} else {

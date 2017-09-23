@@ -13,8 +13,10 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let find = (keyValuePair, callback) => {
-  Repo.find(keyValuePair, callback).sort('-updated');
+  Repo.find(keyValuePair, callback).sort('-updated').limit(25);
 }
+
+// let findAll = 
 
 let save = (repoObj) => {
   // TODO: Your code here

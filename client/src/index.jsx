@@ -10,7 +10,7 @@ class App extends React.Component {
     super(props);
     // this.refreshData = this.refreshData.bind(this);
     this.state = { 
-      repos: []
+      repos: this.refreshData() || []
     }
 
   }
@@ -29,7 +29,7 @@ class App extends React.Component {
       data: JSON.stringify(searchTerm),
       success: function(data) {
         console.log("success: ", data);
-        context.refreshData(term);
+        context.refreshData();
 
       },
       error: function(error) {
@@ -38,12 +38,12 @@ class App extends React.Component {
     })
   }
 
-  refreshData (term) {
+  refreshData () {
     // console.log(`${term} was searched`);
     // console.log('got here');
-    var searchTerm = {
-      username: term
-    }
+    // var searchTerm = {
+    //   username: term
+    // }
     var context = this;
 
 
